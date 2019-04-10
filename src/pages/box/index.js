@@ -16,9 +16,9 @@ export default class box extends Component {
     state = {box: { }};
 
     async componentDidMount(){
-
-        this.subscribeToNewFiles();
         
+        this.subscribeToNewFiles();
+
         const box = this.props.match.params.id;
 
         const response = await api.get(`boxes/${box}`);
@@ -35,7 +35,9 @@ export default class box extends Component {
         io.emit('connectRoom', box);
 
         io.on('file', data =>{
-            this.setState({ box: { ...this.state.box, files: [ data, ...this.state.box.files]} });
+            this.setState({ 
+                box: { ...this.state.box, files: [ data, ...this.state.box.files]}
+            });
         });
     }
 
